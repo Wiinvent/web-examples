@@ -2,10 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video.js Basic Example</title>
+    <style>
+        .wrap{
+            width: 1019px;
+            height:720px;
+        }
+    </style>
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+    <script src="https://wiinvent.tv/sdk/1.0.0/wiinvent.js"></script>
 </head>
 <body>
-
+    
+        <video id="videojs-player" controls playsinline muted class="video-js vjs-default-skin vjs-big-play-centered wrap" >
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"> 
+        </video>
+  
 </body>
+<script>
+    const player = videojs('videojs-player');
+    const wiinsdk=new WIINVENT({
+    
+        channelId:35,
+        streamId:28,
+        debug:false,
+        deviceType:"PHONE",
+        enableGeoBlock:false,
+        env:'DEV',
+        platform:'',
+        previewMode: false,
+        viewerId: '',
+        thirdPartyToken: '',
+        mappingType: 'WI',
+        accountId: '',
+        timeoutSecond:0
+
+    })
+    player.one('play', () => wiinsdk.start())
+    player.on('ended', () => wiinsdk.stop());
+    player.on('error', () => wiinsdk.stop());
+    player.on('pause', () => wiinsdk.stop());
+    player.on('play', () => wiinsdk.start());
+    player.on('timeupdate', () => wiinsdk.timeUpdate(player.currentTime()));
+</script>
 </html>
