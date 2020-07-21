@@ -21,13 +21,14 @@
 <body>
     
         <video id="videojs-player" controls playsinline muted class="video-js vjs-default-skin vjs-big-play-centered wrap" >
-            <source src="https://wiinvent.tv/videos/votingdemo.mp4" type="video/mp4"> 
+            <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"> 
         </video>
   
 </body>
 <script>
     const player = videojs('videojs-player');
     const wiinsdk=new WI({
+        domId="videojs-player",
         playerType:WI.PlayerType.VIDEO_JS,
         channelId:35,
         streamId:28,
@@ -48,7 +49,6 @@
     player.on('ended', () => wiinsdk.stop());
     player.on('error', () => wiinsdk.stop());
     player.on('pause', () => wiinsdk.stop());
-    player.on('play', () => wiinsdk.start());
     player.on('timeupdate', () => wiinsdk.timeUpdate(player.currentTime()));
 </script>
 </html>
