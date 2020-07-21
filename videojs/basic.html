@@ -28,27 +28,25 @@
 <script>
     const player = videojs('videojs-player');
     const wiinsdk=new WI({
-        domId="videojs-player",
-        playerType:WI.PlayerType.VIDEO_JS,
-        channelId:35,
-        streamId:28,
-        debug:false,
-        deviceType:WI.DeviceType.PHONE,
-        enableGeoBlock:false,
-        env:WI.Environment.DEV,
-        platform:'',
+        domId: "videojs-player",
+        playerType: WI.PlayerType.VIDEO_JS,
+        channelId: 35,
+        streamId: 28,
+        debug: false,
+        deviceType: WI.DeviceType.PHONE,
+        enableGeoBlock: false,
+        env: WI.Environment.DEV,
+        platform: '',
         previewMode: false,
         viewerId: '',
         thirdPartyToken: '',
         mappingType: WI.MappingType.WI,
         accountId: '',
-        timeoutSecond:0
+        timeoutSecond: 0
 
     })
     player.one('play', () => wiinsdk.start())
-    player.on('ended', () => wiinsdk.stop());
     player.on('error', () => wiinsdk.stop());
-    player.on('pause', () => wiinsdk.stop());
     player.on('timeupdate', () => wiinsdk.timeUpdate(player.currentTime()));
 </script>
 </html>
